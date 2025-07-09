@@ -1,0 +1,86 @@
+[
+  {
+    "id": "1",
+    "estado": "Ciudad de México",
+    "direccion": "Calle del Sol 101, Colonia Centro",
+    "precio": "1,200.00 ",
+    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYKzpb0jm_ZPUW3h6s2V6cj-E4BrLUPqMkVOYkvGE4PEzwyV1iWxN3kLOuef1P-i341b0&usqp=CAU"
+  },
+  {
+    "id": "2",
+    "estado": "Puebla",
+    "direccion": "Av. Reforma 200, Col. Juárez",
+    "precio": "850.00 ",
+    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCf_VkV0xOpJvm4iFBE7QsjDsbqISsBtEk3g&s"
+  },
+  {
+    "id": "3",
+    "estado": "Nuevo León",
+    "direccion": "Privada de la Montaña 5, Fracc. Las Lomas, Monterrey",
+    "precio": "2,500.00 ",
+    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCKoO5-E6Ije04i4ueYT6AmQM5dTsGWa95pg&s"
+  },
+  {
+    "id": "4",
+    "estado": "Jalisco",
+    "direccion": "Bosques de Aragón 34, Sección A, Guadalajara",
+    "precio": "1,100.00 ",
+    "imagen": "https://phantom-elmundo.uecdn.es/24809f277a71ad0bb4054172fe5127a0/resize/1200/f/webp/assets/multimedia/imagenes/2022/10/13/16656583348670.jpg"
+  },
+  {
+    "id": "5",
+    "estado": "Oaxaca",
+    "direccion": "Callejón del Gato 7, Barrio de San Francisco, Oaxaca",
+    "precio": "700.00 ",
+    "imagen": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600"
+  },
+  {
+    "id": "6",
+    "estado": "Ciudad de México",
+    "direccion": "Circuito Interior 99, Col. Roma",
+    "precio": "1,800.00 ",
+    "imagen": "https://images.unsplash.com/photo-1582268482069-b3a51f845a76?auto=format&fit=crop&w=600"
+  },
+  {
+    "id": "7",
+    "estado": "Quintana Roo",
+    "direccion": "Paseo de los Enamorados 22, Zona Hotelera, Cancún",
+    "precio": "3,000.00 ",
+    "imagen": "https://images.unsplash.com/photo-1502672260266-1c863a3c94f0?auto=format&fit=crop&w=600"
+  },
+  {
+    "id": "8",
+    "estado": "Querétaro",
+    "direccion": "Bugambilias 45, Fraccionamiento La Pradera, Querétaro",
+    "precio": "950.00 ",
+    "imagen": "https://images.unsplash.com/photo-1568605117036-bad8150f22cd?auto=format&fit=crop&w=600"
+  },
+  {
+    "id": "9",
+    "estado": "Ciudad de México",
+    "direccion": "Río Nazas 12, Col. Cuauhtémoc",
+    "precio": "2,100.00 ",
+    "imagen": "https://images.unsplash.com/photo-1516455590571-18256e13bc86?auto=format&fit=crop&w=600"
+  },
+  {
+    "id": "150",
+    "estado": "Chiapas",
+    "direccion": "Cerrada del Encanto 8, Barrio de Analco, San Cristóbal de las Casas",
+    "precio": "600.00 ",
+    "imagen": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600"
+  },
+  {
+    "id": "10",
+    "estado": "Puebla",
+    "direccion": "Vía Atlixcáyotl 150, Reserva Territorial",
+    "precio": "1,400.00 ",
+    "imagen": "https://images.unsplash.com/photo-1554995207-c18c696d3963?auto=format&fit=crop&w=600"
+  },
+  {
+    "id": "11",
+    "estado": "Estado de México",
+    "direccion": "Avenida Siempre Viva 742, Naucalpan de Juárez",
+    "precio": "1,300.00 ",
+    "imagen": "https://images.unsplash.com/photo-1576941089067-2fd3f7358893?auto=format&fit=crop&w=600"
+  }
+]
