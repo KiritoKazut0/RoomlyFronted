@@ -1,3 +1,5 @@
+import LoginForm from "./pages/Forms/LoginForm"
+import Home from "./pages/Home/Home"
 import ResidentsPages from "./pages/Residents/Residents"
 
 
@@ -6,7 +8,9 @@ function App() {
   return (
 
     <>
-        <ResidentsPages/>
+      <Home/>
+        {/* <LoginForm/>  */}
+        {/* <ResidentsPages/> */}
     </>
      
   )

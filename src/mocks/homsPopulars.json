@@ -1,0 +1,44 @@
+[
+  {
+    "id": "1",
+    "estado": "Ciudad de México",
+    "direccion": "Calle del Sol 101, Colonia Centro",
+    "precio": "1,200.00 ",
+    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYKzpb0jm_ZPUW3h6s2V6cj-E4BrLUPqMkVOYkvGE4PEzwyV1iWxN3kLOuef1P-i341b0&usqp=CAU"
+  },
+  {
+    "id": "2",
+    "estado": "Puebla",
+    "direccion": "Av. Reforma 200, Col. Juárez",
+    "precio": "850.00 ",
+    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCf_VkV0xOpJvm4iFBE7QsjDsbqISsBtEk3g&s"
+  },
+  {
+    "id": "3",
+    "estado": "Nuevo León",
+    "direccion": "Privada de la Montaña 5, Fracc. Las Lomas, Monterrey",
+    "precio": "2,500.00 ",
+    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCKoO5-E6Ije04i4ueYT6AmQM5dTsGWa95pg&s"
+  },
+  {
+    "id": "4",
+    "estado": "Jalisco",
+    "direccion": "Bosques de Aragón 34, Sección A, Guadalajara",
+    "precio": "1,100.00 ",
+    "imagen": "https://phantom-elmundo.uecdn.es/24809f277a71ad0bb4054172fe5127a0/resize/1200/f/webp/assets/multimedia/imagenes/2022/10/13/16656583348670.jpg"
+  },
+  {
+    "id": "5",
+    "estado": "Oaxaca",
+    "direccion": "Callejón del Gato 7, Barrio de San Francisco, Oaxaca",
+    "precio": "700.00 ",
+    "imagen": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600"
+  },
+  {
+    "id": "6",
+    "estado": "Ciudad de México",
+    "direccion": "Circuito Interior 99, Col. Roma",
+    "precio": "1,800.00 ",
+    "imagen": "https://images.unsplash.com/photo-1582268482069-b3a51f845a76?auto=format&fit=crop&w=600"
+  }
+]
