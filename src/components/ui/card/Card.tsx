@@ -9,15 +9,15 @@ interface RentsProps{
    estado: string,
    direccion: string,
    precio: string,
-   imagen: string
+   imagen_main: string
 }
 
-export default function CardHome({estado, direccion, precio, imagen}: RentsProps) {
+export default function CardHome({estado, direccion, precio, imagen_main}: RentsProps) {
   return (
     <Card sx={{ width: 320 }}>
       <AspectRatio minHeight="120px" maxHeight="200px">
         <img
-          src={imagen}
+          src={imagen_main}
           loading="lazy"
           alt=""
         />

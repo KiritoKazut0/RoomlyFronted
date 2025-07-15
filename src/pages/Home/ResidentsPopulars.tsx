@@ -27,7 +27,7 @@ export default function ResidentsPopulars() {
                         direccion={home.direccion}
                         estado={home.estado}
                         precio={home.precio}
-                        imagen={home.imagen}
+                        imagen_main={home.image_main}
                     />
                 ))}
             </Container>

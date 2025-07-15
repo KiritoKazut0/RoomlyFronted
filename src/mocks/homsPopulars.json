@@ -1,44 +1,206 @@
 [
-  {
-    "id": "1",
-    "estado": "Ciudad de México",
-    "direccion": "Calle del Sol 101, Colonia Centro",
-    "precio": "1,200.00 ",
-    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYKzpb0jm_ZPUW3h6s2V6cj-E4BrLUPqMkVOYkvGE4PEzwyV1iWxN3kLOuef1P-i341b0&usqp=CAU"
-  },
-  {
-    "id": "2",
-    "estado": "Puebla",
-    "direccion": "Av. Reforma 200, Col. Juárez",
-    "precio": "850.00 ",
-    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCf_VkV0xOpJvm4iFBE7QsjDsbqISsBtEk3g&s"
-  },
-  {
-    "id": "3",
-    "estado": "Nuevo León",
-    "direccion": "Privada de la Montaña 5, Fracc. Las Lomas, Monterrey",
-    "precio": "2,500.00 ",
-    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCKoO5-E6Ije04i4ueYT6AmQM5dTsGWa95pg&s"
-  },
+
   {
     "id": "4",
     "estado": "Jalisco",
     "direccion": "Bosques de Aragón 34, Sección A, Guadalajara",
-    "precio": "1,100.00 ",
-    "imagen": "https://phantom-elmundo.uecdn.es/24809f277a71ad0bb4054172fe5127a0/resize/1200/f/webp/assets/multimedia/imagenes/2022/10/13/16656583348670.jpg"
+    "precio": "1,100.00",
+    "descripcion": "Moderno departamento en zona residencial. Cercano a centros comerciales y vías rápidas. Cuenta con seguridad 24/7.",
+    "image_main": "https://phantom-elmundo.uecdn.es/24809f277a71ad0bb4054172fe5127a0/resize/1200/f/webp/assets/multimedia/imagenes/2022/10/13/16656583348670.jpg",
+    "photo_album": [
+      "https://example.com/images/guadalajara4_1.jpg",
+      "https://example.com/images/guadalajara4_2.jpg"
+    ],
+    "reviews": [
+      {
+        "user": {
+          "id": "user005",
+          "name": "Leafa Kirigaya"
+        },
+        "comment": "Muy bien ubicado y las áreas comunes están en perfectas condiciones. Lo recomiendo para estancias largas.",
+        "qualification": "4"
+      }
+    ]
   },
   {
     "id": "5",
     "estado": "Oaxaca",
     "direccion": "Callejón del Gato 7, Barrio de San Francisco, Oaxaca",
-    "precio": "700.00 ",
-    "imagen": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600"
+    "precio": "700.00",
+    "descripcion": "Encantadora casa colonial en el corazón de Oaxaca. Perfecta para vivir la cultura local. Cerca de mercados y plazas.",
+    "image_main": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600",
+    "photo_album": [
+      "https://example.com/images/oaxaca5_1.jpg",
+      "https://example.com/images/oaxaca5_2.jpg"
+    ],
+    "reviews": [
+      {
+        "user": {
+          "id": "user006",
+          "name": "Klein Ryoutarou"
+        },
+        "comment": "Una experiencia auténtica. La casa es hermosa y la ubicación te permite explorar la ciudad a pie.",
+        "qualification": "5"
+      }
+    ]
   },
   {
     "id": "6",
     "estado": "Ciudad de México",
     "direccion": "Circuito Interior 99, Col. Roma",
-    "precio": "1,800.00 ",
-    "imagen": "https://images.unsplash.com/photo-1582268482069-b3a51f845a76?auto=format&fit=crop&w=600"
+    "precio": "1,800.00",
+    "descripcion": "Loft de diseño en una de las colonias más vibrantes de la CDMX. Ideal para jóvenes profesionales. Cerca de restaurantes y vida nocturna.",
+    "image_main": "https://images.unsplash.com/photo-1582268482069-b3a51f845a76?auto=format&fit=crop&w=600",
+    "photo_album": [
+      "https://example.com/images/cdmx6_1.jpg",
+      "https://example.com/images/cdmx6_2.jpg",
+      "https://example.com/images/cdmx6_3.jpg"
+    ],
+    "reviews": [
+      {
+        "user": {
+          "id": "user007",
+          "name": "Lizbeth Rika"
+        },
+        "comment": "Me encantó el estilo del loft. Es muy funcional y la zona tiene un ambiente increíble. Volvería sin dudarlo.",
+        "qualification": "5"
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "estado": "Quintana Roo",
+    "direccion": "Paseo de los Enamorados 22, Zona Hotelera, Cancún",
+    "precio": "3,000.00",
+    "descripcion": "Espectacular condominio con vista al mar Caribe. Acceso a playa privada y amenidades de lujo. Perfecto para vacaciones.",
+    "image_main": "https://images.unsplash.com/photo-1502672260266-1c863a3c94f0?auto=format&fit=crop&w=600",
+    "photo_album": [
+      "https://example.com/images/cancun7_1.jpg",
+      "https://example.com/images/cancun7_2.jpg",
+      "https://example.com/images/cancun7_3.jpg",
+      "https://example.com/images/cancun7_4.jpg"
+    ],
+    "reviews": [
+      {
+        "user": {
+          "id": "user008",
+          "name": "Silica Keiko"
+        },
+        "comment": "Un paraíso en la tierra. Las vistas son impresionantes y las instalaciones superaron mis expectativas. Experiencia inolvidable.",
+        "qualification": "5"
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "estado": "Querétaro",
+    "direccion": "Bugambilias 45, Fraccionamiento La Pradera, Querétaro",
+    "precio": "950.00",
+    "descripcion": "Casa en fraccionamiento privado con seguridad. Ideal para familias, con áreas verdes y juegos infantiles. Tranquilidad garantizada.",
+    "image_main": "https://images.unsplash.com/photo-1568605117036-bad8150f22cd?auto=format&fit=crop&w=600",
+    "photo_album": [
+      "https://example.com/images/queretaro8_1.jpg",
+      "https://example.com/images/queretaro8_2.jpg"
+    ],
+    "reviews": [
+      {
+        "user": {
+          "id": "user009",
+          "name": "Agil Andrew"
+        },
+        "comment": "La casa es muy acogedora y el fraccionamiento es muy seguro. Mis hijos disfrutaron mucho de los juegos.",
+        "qualification": "4"
+      }
+    ]
+  },
+  {
+    "id": "9",
+    "estado": "Ciudad de México",
+    "direccion": "Río Nazas 12, Col. Cuauhtémoc",
+    "precio": "2,100.00",
+    "descripcion": "Departamento de lujo con acabados de alta calidad y vista a Paseo de la Reforma. Cerca de embajadas y zonas financieras.",
+    "image_main": "https://images.unsplash.com/photo-1516455590571-18256e13bc86?auto=format&fit=crop&w=600",
+    "photo_album": [
+      "https://example.com/images/cdmx9_1.jpg",
+      "https://example.com/images/cdmx9_2.jpg",
+      "https://example.com/images/cdmx9_3.jpg"
+    ],
+    "reviews": [
+      {
+        "user": {
+          "id": "user010",
+          "name": "Yuuki Konno"
+        },
+        "comment": "Un lugar increíble para hospedarse en la Ciudad de México. Elegante y con todas las comodidades. El personal es muy atento.",
+        "qualification": "5"
+      }
+    ]
+  },
+  {
+    "id": "150",
+    "estado": "Chiapas",
+    "direccion": "Cerrada del Encanto 8, Barrio de Analco, San Cristóbal de las Casas",
+    "precio": "600.00",
+    "descripcion": "Casa rústica con encanto en el corazón de San Cristóbal. Ideal para viajeros que buscan una experiencia cultural auténtica y tranquilidad.",
+    "image_main": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600",
+    "photo_album": [
+      "https://example.com/images/chiapas150_1.jpg",
+      "https://example.com/images/chiapas150_2.jpg"
+    ],
+    "reviews": [
+      {
+        "user": {
+          "id": "user011",
+          "name": "Asuna Yuuki"
+        },
+        "comment": "La casa tiene un toque muy especial y se respira paz. Disfruté mucho de los alrededores y la comida local.",
+        "qualification": "4"
+      }
+    ]
+  },
+  {
+    "id": "10",
+    "estado": "Puebla",
+    "direccion": "Vía Atlixcáyotl 150, Reserva Territorial",
+    "precio": "1,400.00",
+    "descripcion": "Amplio departamento con 2 recámaras, ideal para una familia pequeña. Zona con alta plusvalía y acceso a servicios.",
+    "image_main": "https://images.unsplash.com/photo-1554995207-c18c696d3963?auto=format&fit=crop&w=600",
+    "photo_album": [
+      "https://example.com/images/puebla10_1.jpg",
+      "https://example.com/images/puebla10_2.jpg"
+    ],
+    "reviews": [
+      {
+        "user": {
+          "id": "user012",
+          "name": "Klein Ryoutarou"
+        },
+        "comment": "Moderno y funcional. La ubicación es perfecta para llegar a cualquier parte de la ciudad. Muy buena opción.",
+        "qualification": "4"
+      }
+    ]
+  },
+  {
+    "id": "11",
+    "estado": "Estado de México",
+    "direccion": "Avenida Siempre Viva 742, Naucalpan de Juárez",
+    "precio": "1,300.00",
+    "descripcion": "Casa con 4 habitaciones y patio trasero, perfecta para una familia grande. Ubicada en una zona tranquila y con buenas conexiones.",
+    "image_main": "https://images.unsplash.com/photo-1576941089067-2fd3f7358893?auto=format&fit=crop&w=600",
+    "photo_album": [
+      "https://example.com/images/edomex11_1.jpg",
+      "https://example.com/images/edomex11_2.jpg",
+      "https://example.com/images/edomex11_3.jpg"
+    ],
+    "reviews": [
+      {
+        "user": {
+          "id": "user013",
+          "name": "Silica Keiko"
+        },
+        "comment": "La casa es muy espaciosa y el jardín es ideal para mascotas. Muy contentos con la elección.",
+        "qualification": "5"
+      }
+    ]
   }
 ]
