@@ -10,8 +10,8 @@ import {
 } from '@mui/icons-material';
 import Navbar from '../../components/layout/Nav/Navbar';
 
-// Importar el mock que creamos
-import mockPropertyData from '../../mocks/propertyDetail.json';
+// Importar el homes.json
+import homemock from '../../mocks/homes.json';
 
 // Helper function para convertir string de icono a componente
 const getIconByName = (iconName: string) => {
@@ -25,6 +25,18 @@ const getIconByName = (iconName: string) => {
   };
   return icons[iconName] || <Chair />;
 };
+
+// Usar la primera propiedad del homes.json
+const mockPropertyData = homemock[0];
+
+// Servicios por defecto
+const defaultServices = [
+  { label: "Wi-Fi", icon: "Wifi" },
+  { label: "Aire Acondicionado", icon: "AcUnit" },
+  { label: "Cocina", icon: "Kitchen" },
+  { label: "Baños", icon: "Bathtub" },
+  { label: "Amueblado", icon: "Chair" }
+];
 
 export default function PropertyDetail() {
   return (
@@ -117,10 +129,12 @@ export default function PropertyDetail() {
                 {mockPropertyData.descripcion}
               </Typography>
               <Typography level="body-md" sx={{ mb: 2, lineHeight: 1.6 }}>
-                {mockPropertyData.detalles}
+                Este espacioso alojamiento cuenta con todas las comodidades modernas para garantizar una estancia confortable. 
+                Perfecto para huéspedes que buscan una ubicación conveniente con fácil acceso a las principales atracciones de la ciudad.
               </Typography>
               <Typography level="body-md" sx={{ lineHeight: 1.6 }}>
-                {mockPropertyData.ubicacion}
+                La propiedad se encuentra en una zona estratégica con excelente conectividad de transporte público, 
+                cerca de restaurantes locales, centros comerciales y puntos de interés turístico.
               </Typography>
             </Box>
 
@@ -130,7 +144,7 @@ export default function PropertyDetail() {
                 Servicios
               </Typography>
               <Grid container spacing={2}>
-                {mockPropertyData.servicios.map((servicio, index) => (
+                {defaultServices.map((servicio, index) => (
                   <Grid xs={6} sm={4} key={index}>
                     <Box sx={{ 
                       display: 'flex', 
@@ -182,7 +196,7 @@ export default function PropertyDetail() {
                       Disponibilidad
                     </Typography>
                     <Chip color="success" variant="soft" size="md">
-                      {mockPropertyData.disponibilidad}
+                      Disponible
                     </Chip>
                   </Box>
                 </Grid>
