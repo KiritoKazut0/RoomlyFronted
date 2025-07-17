@@ -1,0 +1,88 @@
+{
+  "id": "user_001",
+  "name": "María González Rodríguez",
+  "email": "maria.gonzalez@email.com",
+  "avatar": "https://images.unsplash.com/photo-1494790108755-2616b1e2e7c0?auto=format&fit=crop&w=150",
+  "phone": "+34 612 345 678",
+  "location": "Madrid, España",
+  "memberSince": "Enero 2023",
+  "totalReservations": 24,
+  "rating": 4.8,
+  "maxRating": 5.0,
+  "bio": "Viajera apasionada que disfruta explorando nuevas culturas y lugares únicos. Me encanta la arquitectura colonial y los espacios con historia.",
+  "preferences": {
+    "propertyTypes": ["Departamento", "Casa", "Loft"],
+    "amenities": ["Wi-Fi", "Aire Acondicionado", "Cocina", "Estacionamiento"],
+    "budgetRange": {
+      "min": 800,
+      "max": 2000
+    }
+  },
+  "recentBookings": [
+    {
+      "id": "booking_001",
+      "propertyId": "1",
+      "propertyName": "Departamento en Centro CDMX",
+      "location": "Ciudad de México",
+      "checkIn": "2023-12-15",
+      "checkOut": "2023-12-18",
+      "status": "completed",
+      "rating": 5,
+      "totalPaid": 3600.00
+    },
+    {
+      "id": "booking_002",
+      "propertyId": "5",
+      "propertyName": "Casa Colonial Oaxaca",
+      "location": "Oaxaca",
+      "checkIn": "2023-11-20",
+      "checkOut": "2023-11-25",
+      "status": "completed",
+      "rating": 5,
+      "totalPaid": 3500.00
+    },
+    {
+      "id": "booking_003",
+      "propertyId": "4",
+      "propertyName": "Departamento Moderno Guadalajara",
+      "location": "Jalisco",
+      "checkIn": "2024-01-10",
+      "checkOut": "2024-01-12",
+      "status": "upcoming",
+      "totalPaid": 2200.00
+    }
+  ],
+  "favorites": ["1", "5", "7", "9"],
+  "personalInfo": {
+    "birthDate": "1990-03-15",
+    "nationality": "Española",
+    "occupation": "Diseñadora Gráfica",
+    "emergencyContact": {
+      "name": "Carlos González",
+      "phone": "+34 678 901 234",
+      "relationship": "Hermano"
+    }
+  },
+  "accountSettings": {
+    "language": "es",
+    "currency": "EUR",
+    "notifications": {
+      "email": true,
+      "push": true,
+      "sms": false
+    },
+    "privacy": {
+      "showPhone": false,
+      "showEmail": true,
+      "showLocation": true
+    }
+  },
+  "statistics": {
+    "totalNights": 47,
+    "totalSpent": 24780.00,
+    "averageRating": 4.8,
+    "favoriteDestination": "Ciudad de México",
+    "totalReviews": 18,
+    "completionRate": 98.5
+  }
+}
