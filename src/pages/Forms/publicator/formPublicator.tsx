@@ -16,6 +16,7 @@ import {
 import { CloudUpload, Close, Add } from '@mui/icons-material';
 
 const FormPublication = () => {
+  
   const theme = useTheme();
   interface FormData {
     street: string;

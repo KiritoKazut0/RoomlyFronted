@@ -7,6 +7,7 @@ const RentSpaceBanner = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
+    
     <Paper elevation={0} sx={{
       background: theme.palette.mode === 'dark' 
         ? 'linear-gradient(135deg, #2c387e 0%, #1e2a78 100%)' 
