@@ -25,6 +25,7 @@ import {
   CheckCircle 
 } from '@mui/icons-material';
 import copomexService from '../../../services/copomexService';
+import roomService, { RoomServiceType, ICreateRoom } from '../../../services/roomService';
 
 interface FormData {
   street: string;
@@ -60,15 +61,16 @@ const FormPublication = () => {
   const [colonias, setColonias] = useState<string[]>([]);
   const [codigosPostales, setCodigosPostales] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState<'success' | 'error' | 'warning'>('success');
 
   const [services, setServices] = useState({
-    baño: true,
-    wifi: true,
-    amueblado: true,
-    cocina: true,
-    clima: true
+    [RoomServiceType.BATHROOM]: true,
+    [RoomServiceType.WIFI]: true,
+    [RoomServiceType.FURNISHED]: true,
+    [RoomServiceType.KITCHEN]: true,
+    [RoomServiceType.AIR_CONDITIONING]: true
   });
 
   const [additionalService, setAdditionalService] = useState('');
@@ -96,7 +98,8 @@ const FormPublication = () => {
           setFormData(prev => ({
             ...prev,
             state: info.estado,
-            city: info.municipio
+            city: info.municipio,
+            neighborhood: ''
           }));
           setColonias(info.colonias);
           
@@ -195,6 +198,68 @@ const FormPublication = () => {
       setMessageType('error');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSubmit = async () => {
+    setSubmitting(true);
+    try {
+      const selectedServices = Object.entries(services)
+        .filter(([_, checked]) => checked)
+        .map(([service, _]) => service as RoomServiceType);
+
+      const roomData: ICreateRoom = {
+        id_user: 'user-temp-id', // Reemplazar con el ID real del usuario
+        zone: formData.neighborhood,
+        images: [], // Se subirán después
+        description: formData.description,
+        status: 'En revision',
+        price_monthly: parseFloat(formData.price),
+        services: selectedServices,
+        other_services: formData.additionalServices,
+        location_street: formData.street,
+        location_number: parseInt(formData.number),
+        location_postal_code: formData.postalCode,
+        city: formData.city,
+        state: formData.state
+      };
+
+      const newRoom = await roomService.createRoom(roomData);
+
+      if (formData.images.length > 0) {
+        try {
+          const imageUrls = await roomService.uploadRoomImages(newRoom.id, formData.images);
+          await roomService.updateRoom(newRoom.id, { images: imageUrls });
+        } catch (error) {
+          console.error('Error uploading images:', error);
+          setMessage('⚠️ Cuarto creado pero error al subir imágenes');
+          setMessageType('warning');
+          return;
+        }
+      }
+
+      setMessage('✅ ¡Cuarto publicado exitosamente!');
+      setMessageType('success');
+      
+      setFormData({
+        street: '',
+        number: '',
+        postalCode: '',
+        neighborhood: '',
+        city: '',
+        state: '',
+        description: '',
+        price: '',
+        additionalServices: [],
+        images: []
+      });
+      
+    } catch (error) {
+      console.error('Error creating room:', error);
+      setMessage('❌ Error al publicar el cuarto');
+      setMessageType('error');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -489,7 +554,7 @@ const FormPublication = () => {
                   name={service}
                 />
               }
-              label={service.charAt(0).toUpperCase() + service.slice(1)}
+              label={service}
             />
           ))}
         </Box>
@@ -620,15 +685,9 @@ const FormPublication = () => {
         <Button
           variant="contained"
           size="large"
-          sx={{
-            px: 6,
-            py: 1.5,
-            fontSize: '1rem',
-            fontWeight: 600,
-            textTransform: 'none',
-            borderRadius: 2
-          }}
+          onClick={handleSubmit}
           disabled={
+            submitting ||
             !formData.street || 
             !formData.number || 
             !formData.neighborhood || 
@@ -638,8 +697,23 @@ const FormPublication = () => {
             !formData.description || 
             !formData.price
           }
+          sx={{
+            px: 6,
+            py: 1.5,
+            fontSize: '1rem',
+            fontWeight: 600,
+            textTransform: 'none',
+            borderRadius: 2
+          }}
         >
-          Publicar mi espacio
+          {submitting ? (
+            <>
+              <CircularProgress size={20} sx={{ mr: 1 }} />
+              Publicando...
+            </>
+          ) : (
+            'Publicar mi espacio'
+          )}
         </Button>
       </Box>
 
