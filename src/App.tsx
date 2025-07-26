@@ -7,6 +7,7 @@ import Footer from "./pages/Forms/publicator/FooterPublicator"
 import BeneficiosArrendadores from "./pages/Forms/publicator/beneficPublicator"
 import FormPublication from "./pages/Forms/publicator/formPublicator"
 import RentSpaceBanner from "./pages/Forms/publicator/publicatorRoom"
+import RegisterForm from "./pages/Forms/RegisterForm"
 
 function App() {
 
@@ -19,12 +20,12 @@ function App() {
         {/* <LoginForm/>  */}
         {/* <ResidentsPages/>  */}
         {/* <PropertyDetail/> */}
-      <RentSpaceBanner />
+      {/* <RentSpaceBanner />
         <FormPublication/>
         <BeneficiosArrendadores />
-          <Footer />
+          <Footer /> */}
         
-
+        <RegisterForm />
     </>
      
   )

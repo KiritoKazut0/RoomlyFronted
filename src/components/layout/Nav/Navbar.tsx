@@ -44,7 +44,6 @@ const Navbar = () => {
                     </Typography>
                 </Box>
 
-                {/* Search Section */}
                 <Box sx={{
                     display: 'flex',
                     alignItems: 'center',
