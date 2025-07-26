@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -11,25 +11,37 @@ import {
   useTheme,
   IconButton,
   Chip,
-  InputAdornment
+  InputAdornment,
+  Autocomplete,
+  CircularProgress,
+  Alert,
+  Snackbar
 } from '@mui/material';
-import { CloudUpload, Close, Add } from '@mui/icons-material';
+import { 
+  CloudUpload, 
+  Close, 
+  Add, 
+  LocationOn, 
+  CheckCircle 
+} from '@mui/icons-material';
+import copomexService from '../../../services/copomexService';
+
+interface FormData {
+  street: string;
+  number: string;
+  postalCode: string;
+  neighborhood: string;
+  city: string;
+  state: string;
+  description: string;
+  price: string;
+  additionalServices: string[];
+  images: File[];
+}
 
 const FormPublication = () => {
   const theme = useTheme();
-  interface FormData {
-    street: string;
-    number: string;
-    postalCode: string;
-    neighborhood: string;
-    city: string;
-    state: string;
-    description: string;
-    price: string;
-    additionalServices: string[];
-    images: File[];
-  }
-
+  
   const [formData, setFormData] = useState<FormData>({
     street: '',
     number: '',
@@ -43,6 +55,14 @@ const FormPublication = () => {
     images: []
   });
 
+  const [estados, setEstados] = useState<string[]>([]);
+  const [municipios, setMunicipios] = useState<string[]>([]);
+  const [colonias, setColonias] = useState<string[]>([]);
+  const [codigosPostales, setCodigosPostales] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState<'success' | 'error' | 'warning'>('success');
+
   const [services, setServices] = useState({
     baño: true,
     wifi: true,
@@ -52,6 +72,131 @@ const FormPublication = () => {
   });
 
   const [additionalService, setAdditionalService] = useState('');
+
+  useEffect(() => {
+    const loadEstados = async () => {
+      try {
+        const estadosData = await copomexService.getEstados();
+        setEstados(estadosData);
+      } catch (error) {
+        console.error('Error loading estados:', error);
+      }
+    };
+    loadEstados();
+  }, []);
+
+  const handlePostalCodeChange = async (value: string) => {
+    setFormData(prev => ({ ...prev, postalCode: value }));
+    
+    if (value.length === 5 && /^\d{5}$/.test(value)) {
+      setLoading(true);
+      try {
+        const info = await copomexService.autocompletarDireccion(value);
+        if (info) {
+          setFormData(prev => ({
+            ...prev,
+            state: info.estado,
+            city: info.municipio
+          }));
+          setColonias(info.colonias);
+          
+          const municipiosData = await copomexService.getMunicipiosPorEstado(info.estado);
+          setMunicipios(municipiosData);
+          
+          setMessage('✅ Información autocompletada');
+          setMessageType('success');
+        } else {
+          setMessage('⚠️ Código postal no encontrado');
+          setMessageType('warning');
+        }
+      } catch (error) {
+        setMessage('❌ Error al consultar código postal');
+        setMessageType('error');
+      } finally {
+        setLoading(false);
+      }
+    } else if (value.length >= 2) {
+      try {
+        const cps = await copomexService.buscarCodigosPostales(value);
+        setCodigosPostales(cps);
+      } catch (error) {
+        console.error('Error searching postal codes:', error);
+      }
+    }
+  };
+
+  const handleStateChange = async (value: string | null) => {
+    setFormData(prev => ({ 
+      ...prev, 
+      state: value || '',
+      city: '',
+      neighborhood: ''
+    }));
+    
+    setMunicipios([]);
+    setColonias([]);
+    
+    if (value) {
+      try {
+        const municipiosData = await copomexService.getMunicipiosPorEstado(value);
+        setMunicipios(municipiosData);
+      } catch (error) {
+        console.error('Error loading municipios:', error);
+      }
+    }
+  };
+
+  const handleCityChange = async (value: string | null) => {
+    setFormData(prev => ({ 
+      ...prev, 
+      city: value || '',
+      neighborhood: ''
+    }));
+    
+    setColonias([]);
+    
+    if (value) {
+      try {
+        const coloniasData = await copomexService.getColoniasPorMunicipio(value);
+        setColonias(coloniasData);
+      } catch (error) {
+        console.error('Error loading colonias:', error);
+      }
+    }
+  };
+
+  const handleValidateAddress = async () => {
+    if (!formData.postalCode || !formData.neighborhood || !formData.city || !formData.state) {
+      setMessage('Complete los campos de ubicación');
+      setMessageType('warning');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const resultado = await copomexService.validarDireccion({
+        calle: formData.street,
+        numero: formData.number,
+        codigoPostal: formData.postalCode,
+        colonia: formData.neighborhood,
+        municipio: formData.city,
+        estado: formData.state
+      });
+
+      if (resultado.valida) {
+        setMessage('✅ Dirección válida');
+        setMessageType('success');
+      } else {
+        setMessage(`⚠️ ${resultado.errores.join(', ')}`);
+        setMessageType('warning');
+      }
+    } catch (error) {
+      setMessage('❌ Error al validar dirección');
+      setMessageType('error');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -105,7 +250,6 @@ const FormPublication = () => {
       border: `1px solid ${theme.palette.divider}`,
       borderRadius: 2
     }}>
-      {/* Header */}
       <Box sx={{ 
         mb: 4,
         display: 'flex',
@@ -131,15 +275,29 @@ const FormPublication = () => {
 
       <Divider sx={{ mb: 4 }} />
 
-      {/* Detailed Location Section */}
       <Box sx={{ mb: 4 }}>
-        <Typography variant="h6" component="h2" sx={{ 
-          fontWeight: 600,
-          mb: 2,
-          color: theme.palette.text.primary
-        }}>
-          Ubicación exacta
-        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+          <Typography variant="h6" component="h2" sx={{ 
+            fontWeight: 600,
+            color: theme.palette.text.primary,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1
+          }}>
+            <LocationOn />
+            Ubicación exacta
+          </Typography>
+          
+          <Button
+            variant="outlined"
+            size="small"
+            onClick={handleValidateAddress}
+            disabled={loading || !formData.postalCode}
+            startIcon={loading ? <CircularProgress size={16} /> : <CheckCircle />}
+          >
+            Validar
+          </Button>
+        </Box>
         
         <Box sx={{ 
           display: 'flex',
@@ -178,26 +336,49 @@ const FormPublication = () => {
           mb: 2
         }}>
           <Box sx={{ flex: 1 }}>
-            <TextField
-              fullWidth
-              name="neighborhood"
-              value={formData.neighborhood}
-              onChange={handleChange}
-              label="Colonia o Barrio"
-              variant="outlined"
-              required
+            <Autocomplete
+              freeSolo
+              options={codigosPostales}
+              value={formData.postalCode}
+              onInputChange={(event, newValue) => {
+                handlePostalCodeChange(newValue);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Código Postal"
+                  variant="outlined"
+                  required
+                  helperText="5 dígitos para autocompletar"
+                  InputProps={{
+                    ...params.InputProps,
+                    endAdornment: (
+                      <>
+                        {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                        {params.InputProps.endAdornment}
+                      </>
+                    ),
+                  }}
+                />
+              )}
             />
           </Box>
           <Box sx={{ flex: 1 }}>
-            <TextField
-              fullWidth
-              name="postalCode"
-              value={formData.postalCode}
-              onChange={handleChange}
-              label="Código Postal"
-              variant="outlined"
-              required
-              inputProps={{ pattern: "\\d{5}", title: "Debe contener 5 dígitos" }}
+            <Autocomplete
+              options={colonias}
+              value={formData.neighborhood}
+              onChange={(event, newValue) => {
+                setFormData(prev => ({ ...prev, neighborhood: newValue || '' }));
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Colonia"
+                  variant="outlined"
+                  required
+                />
+              )}
+              disabled={colonias.length === 0}
             />
           </Box>
         </Box>
@@ -208,31 +389,39 @@ const FormPublication = () => {
           gap: 2
         }}>
           <Box sx={{ flex: 1 }}>
-            <TextField
-              fullWidth
-              name="city"
-              value={formData.city}
-              onChange={handleChange}
-              label="Ciudad"
-              variant="outlined"
-              required
+            <Autocomplete
+              options={estados}
+              value={formData.state}
+              onChange={(event, newValue) => handleStateChange(newValue)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Estado"
+                  variant="outlined"
+                  required
+                />
+              )}
             />
           </Box>
           <Box sx={{ flex: 1 }}>
-            <TextField
-              fullWidth
-              name="state"
-              value={formData.state}
-              onChange={handleChange}
-              label="Estado"
-              variant="outlined"
-              required
+            <Autocomplete
+              options={municipios}
+              value={formData.city}
+              onChange={(event, newValue) => handleCityChange(newValue)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Ciudad/Municipio"
+                  variant="outlined"
+                  required
+                />
+              )}
+              disabled={municipios.length === 0}
             />
           </Box>
         </Box>
       </Box>
 
-      {/* Description Section */}
       <Box sx={{ mb: 4 }}>
         <Typography variant="h6" component="h2" sx={{ 
           fontWeight: 600,
@@ -248,13 +437,12 @@ const FormPublication = () => {
           name="description"
           value={formData.description}
           onChange={handleChange}
-          placeholder="Describe detalladamente el espacio (tamaño, distribución, iluminación, etc.)"
+          placeholder="Describe detalladamente el espacio"
           variant="outlined"
           required
         />
       </Box>
 
-      {/* Price Section */}
       <Box sx={{ mb: 4 }}>
         <Typography variant="h6" component="h2" sx={{ 
           fontWeight: 600,
@@ -281,7 +469,6 @@ const FormPublication = () => {
 
       <Divider sx={{ mb: 4 }} />
 
-      {/* Services Section */}
       <Box sx={{ mb: 4 }}>
         <Typography variant="h6" component="h2" sx={{ 
           fontWeight: 600,
@@ -315,7 +502,7 @@ const FormPublication = () => {
             fullWidth
             value={additionalService}
             onChange={(e) => setAdditionalService(e.target.value)}
-            placeholder="Ej: Lavadora, Estacionamiento, etc."
+            placeholder="Ej: Lavadora, Estacionamiento"
             variant="outlined"
             size="small"
           />
@@ -335,7 +522,6 @@ const FormPublication = () => {
               key={index}
               label={service}
               onDelete={() => handleRemoveService(service)}
-              sx={{ backgroundColor: theme.palette.action.selected }}
             />
           ))}
         </Box>
@@ -343,7 +529,6 @@ const FormPublication = () => {
 
       <Divider sx={{ mb: 4 }} />
 
-      {/* Image Upload Section */}
       <Box sx={{ mb: 4 }}>
         <Typography variant="h6" component="h2" sx={{ 
           fontWeight: 600,
@@ -371,9 +556,6 @@ const FormPublication = () => {
               borderRadius: 1,
               textAlign: 'center',
               cursor: formData.images.length < 10 ? 'pointer' : 'default',
-              '&:hover': {
-                borderColor: formData.images.length < 10 ? theme.palette.primary.main : theme.palette.divider
-              }
             }}
           >
             <CloudUpload fontSize="large" sx={{ 
@@ -385,18 +567,17 @@ const FormPublication = () => {
               mb: 1
             }}>
               {formData.images.length < 10 
-                ? "Arrastra fotos aquí o haz clic para seleccionar" 
-                : "Has alcanzado el límite de 10 fotos"}
+                ? "Haz clic para seleccionar fotos" 
+                : "Límite alcanzado"}
             </Typography>
             <Typography variant="caption" sx={{ 
               color: theme.palette.text.disabled
             }}>
-              {formData.images.length}/10 fotos subidas
+              {formData.images.length}/10 fotos
             </Typography>
           </Paper>
         </label>
 
-        {/* Image Previews */}
         <Box sx={{ 
           mt: 2,
           display: 'flex',
@@ -408,7 +589,6 @@ const FormPublication = () => {
               position: 'relative',
               width: 100,
               height: 100,
-              bgcolor: theme.palette.action.hover,
               borderRadius: 1,
               overflow: 'hidden'
             }}>
@@ -423,10 +603,7 @@ const FormPublication = () => {
                   position: 'absolute',
                   top: 4,
                   right: 4,
-                  bgcolor: 'background.paper',
-                  '&:hover': {
-                    bgcolor: 'background.default'
-                  }
+                  bgcolor: 'background.paper'
                 }}
                 onClick={() => handleRemoveImage(index)}
               >
@@ -439,7 +616,6 @@ const FormPublication = () => {
 
       <Divider sx={{ mb: 4 }} />
 
-      {/* Submit Button */}
       <Box sx={{ textAlign: 'center', mt: 4 }}>
         <Button
           variant="contained"
@@ -466,6 +642,20 @@ const FormPublication = () => {
           Publicar mi espacio
         </Button>
       </Box>
+
+      <Snackbar
+        open={!!message}
+        autoHideDuration={4000}
+        onClose={() => setMessage('')}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert 
+          onClose={() => setMessage('')} 
+          severity={messageType}
+        >
+          {message}
+        </Alert>
+      </Snackbar>
     </Paper>
   );
 };
