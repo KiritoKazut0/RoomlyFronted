@@ -8,26 +8,24 @@ import BeneficiosArrendadores from "./pages/Forms/publicator/beneficPublicator"
 import FormPublication from "./pages/Forms/publicator/formPublicator"
 import RentSpaceBanner from "./pages/Forms/publicator/publicatorRoom"
 import RegisterForm from "./pages/Forms/RegisterForm"
+import AdminRoomsView from "./pages/administrator/roomAdministrator"
 
 function App() {
-
   return (
-
     <>
-
-    {/* <Profile/> */}
-      {/* <Home/> */}
-        {/* <LoginForm/>  */}
-        {/* <ResidentsPages/>  */}
-        {/* <PropertyDetail/> */}
-      {/* <RentSpaceBanner />
+     {/* <Profile/> 
+      <Home/>  */}
+         {/* <LoginForm/>   */}
+         {/* <ResidentsPages/>  
+         <PropertyDetail/>  
+        <RentSpaceBanner />
         <FormPublication/>
         <BeneficiosArrendadores />
           <Footer /> */}
-        
-        <RegisterForm />
+          
+        {/* <RegisterForm /> */}
+        <AdminRoomsView />   
     </>
-     
   )
 }
 

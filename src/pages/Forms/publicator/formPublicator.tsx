@@ -40,6 +40,7 @@ interface FormData {
 }
 
 const FormPublication = () => {
+  
   const theme = useTheme();
   
   const [formData, setFormData] = useState<FormData>({
