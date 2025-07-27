@@ -7,25 +7,18 @@ import Footer from "./pages/Forms/publicator/FooterPublicator"
 import BeneficiosArrendadores from "./pages/Forms/publicator/beneficPublicator"
 import FormPublication from "./pages/Forms/publicator/formPublicator"
 import RentSpaceBanner from "./pages/Forms/publicator/publicatorRoom"
-import AdminRoomsView  from "./pages/administrator/roomAdministrator"
+// import RoomlySubscription from "./pages/plans/Plans"
+import  SuccessPage from "./pages/payments/payment"
+
+
 function App() {
 
   return (
 
     <>
-
-     {/* <Profile/> 
-      <Home/>  */}
-         {/* <LoginForm/>   */}
-         {/* <ResidentsPages/>  
-         <PropertyDetail/>  
-        <RentSpaceBanner />
-        <FormPublication/>
-        <BeneficiosArrendadores />
-          <Footer /> */}
-          
-           <AdminRoomsView />   
-
+      <SuccessPage />
+      {/* <SubscriptionPage /> */}
+      {/* <RoomlySubscription/> */}
     </>
      
   )
