@@ -7,13 +7,12 @@ import Footer from "./pages/Forms/publicator/FooterPublicator"
 import BeneficiosArrendadores from "./pages/Forms/publicator/beneficPublicator"
 import FormPublication from "./pages/Forms/publicator/formPublicator"
 import RentSpaceBanner from "./pages/Forms/publicator/publicatorRoom"
-import AdminRoomsView  from "./pages/administrator/roomAdministrator"
+import RegisterForm from "./pages/Forms/RegisterForm"
+import AdminRoomsView from "./pages/administrator/RoomAdministrator"
+
 function App() {
-
   return (
-
     <>
-
      {/* <Profile/> 
       <Home/>  */}
          {/* <LoginForm/>   */}
@@ -24,10 +23,9 @@ function App() {
         <BeneficiosArrendadores />
           <Footer /> */}
           
-           <AdminRoomsView />   
-
+        {/* <RegisterForm /> */}
+        <AdminRoomsView />   
     </>
-     
   )
 }
 

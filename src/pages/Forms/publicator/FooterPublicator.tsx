@@ -68,7 +68,6 @@ const Footer = () => {
         maxWidth: '1200px',
         margin: '0 auto'
       }}>
-        {/* Secciones del footer usando Flexbox en lugar de Grid */}
         <Box sx={{
           display: 'flex',
           flexWrap: 'wrap',
@@ -142,7 +141,6 @@ const Footer = () => {
           ))}
         </Box>
 
-        {/* Sección inferior (copyright y redes sociales) */}
         <Box sx={{ 
           mt: 6,
           pt: 4,
