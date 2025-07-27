@@ -1,4 +1,5 @@
-import { Box, Typography, Grid, Card, AspectRatio, Chip, Button } from '@mui/joy';
+import { Box, Typography, Grid, Card, AspectRatio, Chip, Button, Input, Textarea, FormControl, FormLabel } from '@mui/joy';
+import { useState } from 'react';
 import { 
   Wifi, 
   AcUnit, 
@@ -6,7 +7,9 @@ import {
   Bathtub, 
   Chair,
   Pool,
-  Star
+  Star,
+  StarBorder,
+  Send
 } from '@mui/icons-material';
 import Navbar from '../../components/layout/Nav/Navbar';
 
@@ -26,10 +29,8 @@ const getIconByName = (iconName: string) => {
   return icons[iconName] || <Chair />;
 };
 
-// Usar la primera propiedad del homes.json
 const mockPropertyData = homemock[0];
 
-// Servicios por defecto
 const defaultServices = [
   { label: "Wi-Fi", icon: "Wifi" },
   { label: "Aire Acondicionado", icon: "AcUnit" },
@@ -38,7 +39,85 @@ const defaultServices = [
   { label: "Amueblado", icon: "Chair" }
 ];
 
+// Componente para el rating con estrellas
+const StarRating = ({ rating, onRatingChange, readonly = false }: { 
+  rating: number; 
+  onRatingChange?: (rating: number) => void; 
+  readonly?: boolean 
+}) => {
+  return (
+    <Box sx={{ display: 'flex', gap: 0.5 }}>
+      {[1, 2, 3, 4, 5].map((star) => (
+        <Box
+          key={star}
+          onClick={() => !readonly && onRatingChange && onRatingChange(star)}
+          sx={{
+            cursor: readonly ? 'default' : 'pointer',
+            color: star <= rating ? 'warning.main' : 'text.disabled',
+            '&:hover': !readonly ? {
+              color: 'warning.main'
+            } : {}
+          }}
+        >
+          {star <= rating ? <Star sx={{ fontSize: 20 }} /> : <StarBorder sx={{ fontSize: 20 }} />}
+        </Box>
+      ))}
+    </Box>
+  );
+};
+
 export default function PropertyDetail() {
+  // Estados para el formulario de reseñas
+  const [comment, setComment] = useState('');
+  const [rating, setRating] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Información del usuario logueado (obtienes esto de tu contexto/estado global)
+  // Reemplaza esto con tu método real para obtener el usuario logueado
+  const currentUser = {
+    id: "user123", // Obtener del contexto de autenticación
+    name: "Usuario Logueado" // Obtener del contexto de autenticación
+  };
+
+  // Función para enviar la reseña
+  const handleSubmitReview = async () => {
+    if (!comment.trim() || rating === 0) {
+      alert('Por favor escribe un comentario y selecciona una calificación');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Aquí llamas a tu servicio/API
+      const newReview = {
+        user: {
+          id: currentUser.id,
+          name: currentUser.name
+        },
+        comment: comment,
+        qualification: rating.toString()
+      };
+
+      // Ejemplo de llamada a tu API (reemplaza con tu servicio real)
+      // await reviewService.addReview(propertyId, newReview);
+      
+      console.log('Nueva reseña:', newReview);
+      
+      // Limpiar formulario después del envío exitoso
+      setComment('');
+      setRating(0);
+      
+      alert('¡Reseña enviada exitosamente!');
+      
+    } catch (error) {
+      console.error('Error al enviar reseña:', error);
+      alert('Error al enviar la reseña. Inténtalo de nuevo.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <>
       {/* Navbar */}
@@ -239,26 +318,77 @@ export default function PropertyDetail() {
                 minHeight: 'fit-content'
               }}
             >
-              <Typography level="h3" sx={{ mb: 2 }}>
+              <Typography level="h3" sx={{ mb: 3 }}>
                 Reseñas
               </Typography>
+              
+              {/* Existing Reviews */}
               {mockPropertyData.reviews.slice(0, 2).map((review, index) => (
-                <Box key={index} sx={{ mb: 2, p: 2, bgcolor: 'background.level1', borderRadius: 'md' }}>
+                <Box key={index} sx={{ mb: 3, p: 2, bgcolor: 'background.level1', borderRadius: 'md' }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
                     <Typography level="body-sm" sx={{ fontWeight: 'bold' }}>
                       {review.user.name}
                     </Typography>
-                    <Box sx={{ display: 'flex', gap: 0.5 }}>
-                      {[...Array(parseInt(review.qualification))].map((_, i) => (
-                        <Star key={i} sx={{ fontSize: 14, color: 'warning.main' }} />
-                      ))}
-                    </Box>
+                    <StarRating rating={parseInt(review.qualification)} readonly />
                   </Box>
                   <Typography level="body-xs" sx={{ color: 'text.secondary', lineHeight: 1.4 }}>
                     {review.comment}
                   </Typography>
                 </Box>
               ))}
+
+              {/* Add Review Form */}
+              <Box sx={{ mt: 4, p: 3, bgcolor: 'background.surface', borderRadius: 'md', border: '1px solid', borderColor: 'divider' }}>
+                <Typography level="h4" sx={{ mb: 2 }}>
+                  Agregar Reseña
+                </Typography>
+                
+                <Grid container spacing={2}>
+                  {/* Comment */}
+                  <Grid xs={12}>
+                    <FormControl>
+                      <FormLabel>Comentario</FormLabel>
+                      <Textarea
+                        placeholder="Comparte tu experiencia..."
+                        minRows={3}
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                        disabled={isSubmitting}
+                      />
+                    </FormControl>
+                  </Grid>
+
+                  {/* Rating */}
+                  <Grid xs={12}>
+                    <FormControl>
+                      <FormLabel>Calificación</FormLabel>
+                      <Box sx={{ mt: 1 }}>
+                        <StarRating 
+                          rating={rating} 
+                          onRatingChange={setRating}
+                          readonly={isSubmitting}
+                        />
+                      </Box>
+                    </FormControl>
+                  </Grid>
+
+                  {/* Submit Button */}
+                  <Grid xs={12}>
+                    <Button
+                      onClick={handleSubmitReview}
+                      loading={isSubmitting}
+                      disabled={!comment.trim() || rating === 0}
+                      startDecorator={<Send />}
+                      sx={{ 
+                        width: '100%',
+                        mt: 1
+                      }}
+                    >
+                      {isSubmitting ? 'Enviando...' : 'Enviar Reseña'}
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Box>
             </Card>
           </Grid>
         </Grid>

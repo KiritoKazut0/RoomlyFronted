@@ -16,15 +16,15 @@ function App() {
      {/* <Profile/> 
       <Home/>  */}
          {/* <LoginForm/>   */}
-         {/* <ResidentsPages/>  
-         <PropertyDetail/>  
+         {/* <ResidentsPages/>    
         <RentSpaceBanner />
         <FormPublication/>
         <BeneficiosArrendadores />
           <Footer /> */}
           
         {/* <RegisterForm /> */}
-        <AdminRoomsView />   
+        {/* <AdminRoomsView />    */}
+        <PropertyDetail/>
     </>
   )
 }
