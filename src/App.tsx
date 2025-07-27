@@ -7,20 +7,24 @@ import Footer from "./pages/Forms/publicator/FooterPublicator"
 import BeneficiosArrendadores from "./pages/Forms/publicator/beneficPublicator"
 import FormPublication from "./pages/Forms/publicator/formPublicator"
 import RentSpaceBanner from "./pages/Forms/publicator/publicatorRoom"
-
-import  SuccessPage from "./pages/payments/payment"
-
-
+import AdminRoomsView  from "./pages/administrator/roomAdministrator"
 function App() {
-
   return (
-
     <>
-      <SuccessPage />
-      
-      
+
+     {/* <Profile/> 
+      <Home/>  */}
+         {/* <LoginForm/>   */}
+         {/* <ResidentsPages/>  
+         <PropertyDetail/>  
+        <RentSpaceBanner />
+        <FormPublication/>
+        <BeneficiosArrendadores />
+          <Footer /> */}
+          
+           <AdminRoomsView />   
+
     </>
-     
   )
 }
 

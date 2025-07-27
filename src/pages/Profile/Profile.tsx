@@ -43,10 +43,8 @@ export default function Profile() {
 
   return (
     <>
-      {/* Navbar */}
       <Navbar />
       
-      {/* Main Content */}
       <Box sx={{ 
         minHeight: '100vh', 
         bgcolor: 'background.level1', 
