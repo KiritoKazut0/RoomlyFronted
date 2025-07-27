@@ -7,7 +7,7 @@ import Footer from "./pages/Forms/publicator/FooterPublicator"
 import BeneficiosArrendadores from "./pages/Forms/publicator/beneficPublicator"
 import FormPublication from "./pages/Forms/publicator/formPublicator"
 import RentSpaceBanner from "./pages/Forms/publicator/publicatorRoom"
-// import RoomlySubscription from "./pages/plans/Plans"
+
 import  SuccessPage from "./pages/payments/payment"
 
 
@@ -17,8 +17,7 @@ function App() {
 
     <>
       <SuccessPage />
-      {/* <SubscriptionPage /> */}
-      {/* <RoomlySubscription/> */}
+      
     </>
      
   )
